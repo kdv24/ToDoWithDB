@@ -16,6 +16,59 @@
       Category::deleteAll();
     }
 
+    function testGetDescription()
+    {
+      //Arrange
+      $description = "wash the dog";
+      $test_task = new Task ($description);
+
+      //Act 
+      $result = $test_task->testGetDescription();
+
+      //Assert
+      $this->assertEquals($description, $result);
+    }
+
+    function test_getDescription()
+    {
+      //Arrange
+      $description = "wash the dog";
+      $test_task = new Task($description);
+
+      //Act
+      $test_task->setDescription("drink coffee");
+      $result= $test_task->getDescription();
+
+      //Assert
+      $this->assertEquals("drink coffee", $result);
+    }
+
+    function test_getId() {
+      // Arrange
+      $description = "Wash the dog";
+      $id = 1;
+      $test_Task = new Task($description, 1, $id);
+
+      // Act
+      $result = $test_Task->getId();
+
+      // Assert
+      $this->assertEquals(1, $result);
+    }
+
+    function test_setId() {
+      // Arrange
+      $description = "Wash the dog";
+      $test_Task = new Task($description, 1);
+
+      // Act
+      $test_Task->setId(2);
+
+      // Assert
+      $result = $test_Task->getId();
+      $this->assertEquals(2, $result);
+    }
+
     function test_save() {
       // Arrange
       $description = "Wash the dog";
@@ -27,6 +80,20 @@
       // Assert
       $result = Task::getAll();
       $this->assertEquals($test_task, $result[0]);
+    }
+
+    function test_save_setId()
+    {
+      // Arrange
+      $description = "wash the dog";
+      $id = 1;
+      $test_task = new Task($description, $id);
+
+      //Act
+      $test_task->save();
+
+      //Assert
+      $this->assertEquals(true, is_numeric($test_task->getId()));
     }
 
     function test_getAll() {
@@ -62,32 +129,6 @@
       $this->assertEquals([], $result);
     }
 
-    function test_getId() {
-      // Arrange
-      $description = "Wash the dog";
-      $id = 1;
-      $test_Task = new Task($description, 1, $id);
-
-      // Act
-      $result = $test_Task->getId();
-
-      // Assert
-      $this->assertEquals(1, $result);
-    }
-
-    function test_setId() {
-      // Arrange
-      $description = "Wash the dog";
-      $test_Task = new Task($description, 1);
-
-      // Act
-      $test_Task->setId(2);
-
-      // Assert
-      $result = $test_Task->getId();
-      $this->assertEquals(2, $result);
-    }
-
     function test_find() {
       // Arrange
       $description = "Wash the dog";
@@ -114,8 +155,43 @@
       $result = $test_Task->getDueDate();
 
       // Assert
-
       $this->assertEquals($due_date, $result);
+    }
+
+    function test_update() {
+      //Arrange
+      $description = "wash the dog";
+      $id= 1;
+      $test_task = new Task($description, $id);
+      $test_task->save();
+
+      $new_description = "clean the dog";
+
+      //Act
+      $test_Task->update($new_description);
+
+      //Assert
+      $this->assertEquals("clean the dog", $test_task->getDescription());
+    }
+
+    function test_delete_task()
+    {
+      //Arrange
+      $description = "wash the dog";
+      $id = 1;
+      $test_task = new Task($description, $id);
+      $test_task->save();
+
+      $description2 = "water the lawn";
+      $id2 = 2;
+      $test_task2 = new Task($description2, $id2);
+      $test_task2->save();
+
+      //Act
+      $test_task->delete();
+
+      //Assert
+      $this->assertEquals([$test_task2], Task::getAll());
     }
   }
 ?>

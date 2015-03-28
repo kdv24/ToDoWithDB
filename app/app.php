@@ -4,12 +4,14 @@
   require_once __DIR__."/../src/Category.php";
 
   $app = new Silex\Application();
+  $app['debug']=true;
 
   $DB = new PDO('pgsql:host=localhost;dbname=to_do');
 
   $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views'
   ));
+
 
   use Symfony\Component\HttpFoundation\Request;
   Request::enableHttpMethodParameterOverride();
@@ -36,6 +38,11 @@
     $name = $_POST['name'];
     $category = Category::find($id);
     $category->update($name);
+
+    $task_name = $_POST['task_name'];
+    $task = Task::find($id);
+    $task->update($task_name);
+    
     return $app['twig']->render('category.html.twig', array('category'=>$category, 'tasks'=> Task::getAll()));
   });
 
@@ -76,8 +83,7 @@
   });
 
   $app->post("/deleteCategories", function() use ($app) {
-    Category::deleteAll();
-    return $app['twig']->render('index.html.twig');
+    return $app['twig']->render('index.html.twig', array('categories'=>Category::deleteAll()));
   });
 
   return $app;
