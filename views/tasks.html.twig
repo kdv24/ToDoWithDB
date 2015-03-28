@@ -1,0 +1,33 @@
+<html>
+    <head>
+      <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <title>To Do List</title>
+    </head>
+    <body>
+      <div class='container'>
+        <h1>To Do List</h1>
+        {% if tasks is not empty %}
+        <p>Here are all of your tasks:</p>
+        <ul>
+            {% for task in tasks %}
+                <li>{{ task.getDescription }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form action='/tasks' method='post'>
+          <div class='form-group'>
+            <label for='description'>Task Description</label>
+            <input id='description' name='description' class='form-control' type='text'>
+          </div>
+            <button type='submit' class='btn btn-success'>Add task</button>
+        </form>
+        <form action='/deleteTasks' method='post'>
+            <button type='submit' class='btn btn-danger'>Delete</button>
+        </form>
+        <form action='/' method='get'>
+            <button type='submit' class='btn btn-primary'>Home! :D</button>
+        </form>
+      </div>
+    </body>
+</html>
