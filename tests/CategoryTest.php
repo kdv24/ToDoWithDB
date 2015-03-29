@@ -158,6 +158,26 @@
       $this->assertEquals([$test_category2], Category::getAll());
     }
 
+    function testDelete() {
+      //Arrange
+      $name= "work stuff";
+      $id = 1;
+      $test_category= new Category($name, $id);
+      $test_category->save();
+
+      $description = "file reports";
+      $id2 = 2;
+      $test_task = new Task ($description, $id2);
+      $test_task->save();
+
+      //Act
+      $test_category->addTask($test_task);
+      $test_category->delete();
+
+      //Assert
+      $this->assertEquals([], $test_task->getCategories());
+    }
+
 
     function test_getAll() {
       // Arrange
@@ -248,7 +268,7 @@
       $this->assertEquals($test_category->getTasks(), [$test_task]);
     }
 
-    functio testGetTasks()
+    function testGetTasks()
     {
       //Arrange
       $name= "home stuff";

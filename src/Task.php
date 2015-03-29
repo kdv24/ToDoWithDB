@@ -89,6 +89,7 @@
     function delete()
     {
       $GLOBALS['DB']->exec("DELETE FROM tasks WHERE id = {$this->getId()};");
+      $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE id = {$this->getId()};");
     }
 
     /* 1. Create null variable found_task; will be returned by function.

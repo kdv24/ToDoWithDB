@@ -220,6 +220,27 @@
       $this->assertEquals("clean the dog", $test_task->getDescription());
     }
 
+    function testDelete()
+    {
+      //Arrange
+      $name = "work stuff";
+      $id = 1;
+      $test_category = new Category($name, $id);
+      $test_category->save();
+
+      $description = "file reports";
+      $id2 = 2;
+      $test_task = new Task($description, $id2);
+      $test_task->save();
+
+      //Act
+      $test_task->addCategory($test_category);
+      $test_task->delete();
+
+      //Assert
+      $this->assertEquals([], $test_category->getTasks());
+    }
+
     function test_delete_task()
     {
       //Arrange
