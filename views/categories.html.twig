@@ -10,10 +10,10 @@
       <h1>Categories</h1>
 
       {% if categories is not empty %}
-        <p>Here are all of your categories:</p>
+        <p>Here are your categories:</p>
         <ul>
           {% for category in categories %}
-            <li>{{ category.getName }}</li>
+            <li><a href="/categories/{{ category.getId }}">{{ category.getName }}</a></li>
           {% endfor %}
         </ul>
       {% endif %}
@@ -21,15 +21,17 @@
       <form action='/categories' method='post'>
         <div class='form-group'>
           <label for='name'>Category name</label>
-          <input id='name' name='name' class='form-control' type='text'>
+          <input id='name' name='name' class='form-control' type='text' autofocus='autofocus'>
         </div>
         <button type='submit' class='btn btn-success'>Add category</button>
       </form>
+      <br>
       <form action='/deleteCategories' method='post'>
         <button type='submit' class='btn btn-danger'>Clear</button>
       </form>
+      <br>
       <form action='/' method='get'>
-          <button type='submit' class='btn btn-primary'>Home! :D</button>
+          <button type='submit' class='btn btn-primary'>Home</button>
       </form>
     </div>
 

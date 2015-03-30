@@ -9,31 +9,34 @@
       <h1>{{ category.getName }}</h1>
 
       {% if tasks is not empty %}
-        <p>Here are the tasks:</p>
+        <p>Here are the tasks for this category:</p>
         <ul>
           {% for task in tasks %}
-            <li>{{ task.getDescription }} due {{ task.getDueDate }}</li>
+            <li>{{ task.getDescription }}</li>
           {% endfor %}
         </ul>
       {% endif %}
 
-      <h4>Add a task</h4>
-
-      <form action='/tasks' method='post'>
+      <form action='/add_tasks' method='post'>
         <input id='category_id' name='category_id' type='hidden' value='{{ category.getId() }}'>
-        <div class='form-group'>
-          <label for='description'>Task description:</label>
-          <input id='description' name='description' class='form-control' type='text' placeholder='describe task here'>
-        </div>
-        <div class='form-group'>
-          <label for='due_date'>Task due date:</label>
-          <input id='due_date' name='due_date' class='form-control' type='text' placeholder='March 30, 2015'>
-        </div>
+        <label for="task_id">Select a task to add to this category</label>
+        <select id="task_id" name="task_id" type="text">
+          {% for task in all_tasks %}
+            <option value="{{ task.getId }}"> {{ task.getDescription }} </option>
+           {% endfor %}
+        </select>    
+        
         <button type='submit' class='btn btn-success'>Add task</button>
       </form>
-
-      <p><a href="/categories/{{ category.getId }}/edit">Edit this category</a></p>
-      <p><a href='/'>Home</a></p>
+      <br>
+      <form>
+      <button type="submit" class='btn btn-danger'><a href="/categories/{{ category.getId }}/edit">Edit this category</a></button>
+      </form>
+      <br>
+      <form action='/' method='get'>
+          <button type='submit' class='btn btn-primary'>Home</button>
+      </form>
+    </div>
 
     </div>
   </body>

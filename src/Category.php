@@ -72,7 +72,7 @@
 
     static function getAll() {
       $returned_categories = $GLOBALS['DB']->query("SELECT * FROM categories;");
-      $categories = [];
+      $categories = array();
       foreach ($returned_categories as $category) {
         $name = $category['name'];
         $id = $category['id'];
@@ -114,9 +114,7 @@
     $tasks = [];
     $returned_tasks = $GLOBALS['DB']->query("SELECT * FROM tasks WHERE description = '{$description}';");
     foreach ($returned_tasks as $task) {
-      $due_date = $task['due_date'];
-      $due_date = str_replace("-", "/", $due_date);
-      $new_Task = new Task($task['description'], $task['category_id'], $task['id'], $due_date);
+      $new_Task = new Task($task['description'], $task['category_id'], $task['id']);
       array_push($tasks, $new_Task);
     }
     return $tasks;

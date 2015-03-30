@@ -10,7 +10,7 @@
         <p>Here are all of your tasks:</p>
         <ul>
             {% for task in tasks %}
-                <li>{{ task.getDescription }}</li>
+                <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
             {% endfor %}
         </ul>
         {% endif %}
@@ -18,7 +18,7 @@
         <form action='/tasks' method='post'>
           <div class='form-group'>
             <label for='description'>Task Description</label>
-            <input id='description' name='description' class='form-control' type='text'>
+            <input id='description' name='description' class='form-control' type='text' autofocus='autofocus'>
           </div>
             <button type='submit' class='btn btn-success'>Add task</button>
         </form>
@@ -26,7 +26,7 @@
             <button type='submit' class='btn btn-danger'>Delete</button>
         </form>
         <form action='/' method='get'>
-            <button type='submit' class='btn btn-primary'>Home! :D</button>
+            <button type='submit' class='btn btn-primary'>Home</button>
         </form>
       </div>
     </body>

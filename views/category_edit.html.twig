@@ -6,13 +6,14 @@
   </head>
   <body>
     <div class='container'>
-	<h1>Update the {{ category.getName }} category </h1>
+	<h2>Update the category: </h2> 
+	<h3> {{ category.getName }} </h3>
 
 	<form action="/categories/{{ category.getId }}" method="post">
 		<input name="_method" type="hidden" value="patch">
 
 		<label for="name">Rename your category:</label>
-		<input id="name" name="name" type="text">
+		<input id="name" name="name" type="text" autofocus='autofocus'>
 
 		<button type="submit">Update</button>
 	</form>
